@@ -8,8 +8,8 @@ to collect data, then make an equation to figure out the time needed given the d
 
 Note: If future modules you will learn different (BETTER) ways to drive a given distance.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and Sydney, Rebecca, Cheryl.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # TODO: 2. Get a yardstick or tape measure to do some testing with /examples/motors/drive_input_speed.py
 #   Have your whole team work this activity together.
@@ -29,16 +29,19 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 #
 #  Record your calculated speed conversions here:
 #   Tests @ 10 seconds:
-#     100 degrees / second  -->  traveled XXX inches  -->  YYY inches / second
-#     200 degrees / second  -->  traveled XXX inches  -->  YYY inches / second
-#     300 degrees / second  -->  traveled XXX inches  -->  YYY inches / second
-#     400 degrees / second  -->  traveled XXX inches  -->  YYY inches / second
+#     100 degrees / second  -->  traveled 13 inches  -->  1.3 inches / second
+#     200 degrees / second  -->  traveled 24 inches  -->  2.4 inches / second
+#     300 degrees / second  -->  traveled 34.5 inches  -->  3.45 inches /
+# second
+#     400 degrees / second  -->  traveled 45 inches  -->  4.5 inches / second
 #   Tests @ 5 seconds:
-#     500 degrees / second  -->  traveled XXX inches  -->  YYY inches / second
-#     600 degrees / second  -->  traveled XXX inches  -->  YYY inches / second
-#     700 degrees / second  -->  traveled XXX inches  -->  YYY inches / second
-#     800 degrees / second  -->  traveled XXX inches  -->  YYY inches / second
-#     900 degrees / second  -->  traveled XXX inches  -->  YYY inches / second (probably no faster than 800)
+#     500 degrees / second  -->  traveled 27 inches  -->  5.4 inches / second
+#     600 degrees / second  -->  traveled 33 inches  -->  6.6 inches / second
+#     700 degrees / second  -->  traveled 39 inches  -->  7.8 inches / second
+#     800 degrees / second  -->  traveled 42 inches  -->  8.4 inches / second
+#     900 degrees / second  -->  traveled 42 inches  -->  8.4 inches / second
+#  (probably no faster than 800)
+
 #
 # TODO: 3. Make an equation
 #   Derive from that information a way to convert a given degrees per second speed into an inches / second speed.
@@ -63,6 +66,43 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 #    print("--------------------------------------------")
 #    print("  Timed Driving")
 #    print("--------------------------------------------")
+import ev3dev.ev3 as ev3
+import time
+
+def main():
+    print("--------------------------------------------")
+    print("  Drive using input")
+    print("--------------------------------------------")
+    ev3.Sound.speak("Drive using input").wait()
+
+    # Connect two large motors on output ports B and C
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    # Check that the motors are actually connected
+    assert left_motor.connected
+    assert right_motor.connected
+
+    time_s = 1  # Any value other than 0.
+    while time_s != 0:
+        left_sp = int(input("Enter a speed for the left motor (0 to 900 dps): "))
+        right_sp = int(input("Enter a speed for the right motor (0 to 900 dps): "))
+        time_s = int(input("Enter a time to drive (seconds): "))
+        left_motor.run_forever(speed_sp=left_sp)
+        right_motor.run_forever(speed_sp=right_sp)
+        time.sleep(time_s)
+        left_motor.stop()
+        right_motor.stop(stop_action="brake")
+
+    print("Goodbye!")
+    ev3.Sound.speak("Goodbye").wait()
+
+
+# ----------------------------------------------------------------------
+# Calls  main  to start the ball rolling.
+# ----------------------------------------------------------------------
+main()
+
 #    ev3.Sound.speak("Timed Driving").wait()
 # TODO: 4. Change the input questions from:
 #   Enter a speed for the left motor (0 to 900 dps):
