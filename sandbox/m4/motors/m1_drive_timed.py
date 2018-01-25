@@ -50,7 +50,9 @@ Authors: David Fisher and Sydney, Rebecca, Cheryl.
 #       make the value for m and b perfect, but that is overkill.  You have permission to set b = 0 and just pick an m
 #       that would roughly fit most of your data.  Put your value for m below and think about if it most fits:
 #
+#        m = 0.0095
 #       speed_in_inches_per_second = m * speed_in_degrees_per_second + 0
+
 #
 #     Eventually your goal is to make an equation that will allow users to input any distance in inches and any speed in
 #     degrees per second, then output the time needed to drive the correct distance at that speed.  So eventually you
@@ -61,7 +63,8 @@ Authors: David Fisher and Sydney, Rebecca, Cheryl.
 #   Note: To repeat again, in later modules you will learn different (better) ways to travel a given distance using
 #     motor encoders, so just make a simple rough approximation here, since later we'll do it better in a different way.
 #
-# TODO: 3. Copy the content of the /examples/motors/drive_input_speed.py program and place it below these comments.
+# DONE: 3. Copy the content of the /examples/motors/drive_input_speed.py
+# program and place it below these comments.
 #   Change the initial print and speak commands to reflect this module, like this...
 #    print("--------------------------------------------")
 #    print("  Timed Driving")
@@ -85,11 +88,16 @@ def main():
 
     time_s = 1  # Any value other than 0.
     while time_s != 0:
-        left_sp = int(input("Enter a speed for the left motor (0 to 900 dps): "))
-        right_sp = int(input("Enter a speed for the right motor (0 to 900 dps): "))
-        time_s = int(input("Enter a time to drive (seconds): "))
-        left_motor.run_forever(speed_sp=left_sp)
-        right_motor.run_forever(speed_sp=right_sp)
+        m = 0.0095
+        motor_dps = int(input("Enter a speed for the motor (0 to 900 ""dps): "))
+        motor_inps = m * motor_dps
+        dis_in = int(input("Enter a distance to drive (inches): "))
+        times_sp = dis_in / motor_inps
+        if motor_dps == 0 or dis_in == 0:
+            break
+
+        left_motor.run_forever(speed_sp=motor_dps, time_sp=times_sp)
+        right_motor.run_forever(speed_sp=motor_dps, time_sp=times_sp)
         time.sleep(time_s)
         left_motor.stop()
         right_motor.stop(stop_action="brake")
@@ -104,20 +112,22 @@ def main():
 main()
 
 #    ev3.Sound.speak("Timed Driving").wait()
-# TODO: 4. Change the input questions from:
+# DONE: 4. Change the input questions from:
 #   Enter a speed for the left motor (0 to 900 dps):
 #   Enter a speed for the right motor (0 to 900 dps):
 #   Enter a time to drive (seconds):
 # to:
 #   Enter a speed (0 to 900 dps):
 #   Distance to travel (inches):
-# TODO: 5. Write the code necessary to make the robot drive at that speed going roughly that distance.
+# DONE: 5. Write the code necessary to make the robot drive at that speed going
+#  roughly that distance.
 #   Note, in this module, you are REQUIRED to use the pattern...
 #      run_forever()
 #      time.sleep(some_amount)
 #      stop()
 #   You may NOT use the advanced motor commands at this time like: run_to_abs_pos, run_to_rel_pos, or run_timed.
-# TODO: 6. Modify the program so that it will exit immediately if the answer to   any   question is 0.
+# DONE: 6. Modify the program so that it will exit immediately if the answer to
+#    any   question is 0.
 # TODO: 7. Formally test your work. When you think you have the problem complete run these tests to be sure:
 #   200 dps 24 inches (make sure it drives within 6 inches of the target distance)
 #   400 dps 24 inches (make sure it drives within 6 inches of the target distance)
