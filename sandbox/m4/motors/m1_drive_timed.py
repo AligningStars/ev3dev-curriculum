@@ -50,7 +50,7 @@ Authors: David Fisher and Sydney, Rebecca, Cheryl.
 #       make the value for m and b perfect, but that is overkill.  You have permission to set b = 0 and just pick an m
 #       that would roughly fit most of your data.  Put your value for m below and think about if it most fits:
 #
-#        m = 0.0095
+#        m = 0.0076
 #       speed_in_inches_per_second = m * speed_in_degrees_per_second + 0
 
 #
@@ -88,7 +88,7 @@ def main():
 
     time_s = 1  # Any value other than 0.
     while time_s != 0:
-        m = 0.009
+        m = 0.01
         motor_dps = int(input("Enter a speed for the motor (0 to 900 ""dps): "))
         motor_inps = m * motor_dps
         dis_in = int(input("Enter a distance to drive (inches): "))
