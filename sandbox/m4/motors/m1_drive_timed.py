@@ -88,7 +88,7 @@ def main():
 
     time_s = 1  # Any value other than 0.
     while time_s != 0:
-        m = 0.0095
+        m = 0.009
         motor_dps = int(input("Enter a speed for the motor (0 to 900 ""dps): "))
         motor_inps = m * motor_dps
         dis_in = int(input("Enter a distance to drive (inches): "))
