@@ -92,12 +92,12 @@ def main():
         motor_dps = int(input("Enter a speed for the motor (0 to 900 ""dps): "))
         motor_inps = m * motor_dps
         dis_in = int(input("Enter a distance to drive (inches): "))
-        times_sp = dis_in / motor_inps
+        time_s = dis_in / motor_inps
         if motor_dps == 0 or dis_in == 0:
             break
 
-        left_motor.run_forever(speed_sp=motor_dps, time_sp=times_sp)
-        right_motor.run_forever(speed_sp=motor_dps, time_sp=times_sp)
+        left_motor.run_forever(speed_sp=motor_dps, time_sp=time_s)
+        right_motor.run_forever(speed_sp=motor_dps, time_sp=time_s)
         time.sleep(time_s)
         left_motor.stop()
         right_motor.stop(stop_action="brake")
