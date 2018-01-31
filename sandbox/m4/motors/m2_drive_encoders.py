@@ -7,7 +7,7 @@ You will now use a run_to_rel_pos command to implement the action drive inches a
 Authors: David Fisher and Cheryl He, Rebecca Ni, and Sydney Larson.
 """  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
-# TODO: 2. Copy the contents of your m1_drive_timed.py and paste that text into this file below these comments.
+# DONE: 2. Copy the contents of your m1_drive_timed.py and paste that text into this file below these comments.
 #   If your program says and prints anything at the start change it to print and say "Drive using encoders"
 
 # TODO: 3. Add a beep after the drive motors stop (see code below).  Test your code to hear the beep AFTER movement.
@@ -45,3 +45,39 @@ Authors: David Fisher and Cheryl He, Rebecca Ni, and Sydney Larson.
 # Observations you should make, run_to_rel_pos is easier to use since it uses encoders that are independent of speed.
 
 
+import ev3dev.ev3 as ev3
+import time
+
+
+def main():
+    print("--------------------------------------------")
+    print("  Drive using input")
+    print("--------------------------------------------")
+    ev3.Sound.speak("Drive using input").wait()
+
+    # Connect two large motors on output ports B and C
+    left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
+    right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+
+    # Check that the motors are actually connected
+    assert left_motor.connected
+    assert right_motor.connected
+
+    time_s = 1  # Any value other than 0.
+    while time_s != 0:
+        m = 0.01
+        motor_dps = int(input("Enter a speed for the motor (0 to 900 ""dps): "))
+        motor_inps = m * motor_dps
+        dis_in = int(input("Enter a distance to drive (inches): "))
+        time_s = dis_in / motor_inps
+        if motor_dps == 0 or dis_in == 0:
+            break
+
+        left_motor.run_forever(speed_sp=motor_dps, time_sp=time_s)
+        right_motor.run_forever(speed_sp=motor_dps, time_sp=time_s)
+        time.sleep(time_s)
+        left_motor.stop()
+        right_motor.stop(stop_action="brake")
+
+    print("Goodbye!")
+    ev3.Sound.speak("Goodbye").wait()
