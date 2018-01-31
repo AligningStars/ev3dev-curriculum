@@ -10,10 +10,10 @@ Authors: David Fisher and Cheryl He, Rebecca Ni, and Sydney Larson.
 # DONE: 2. Copy the contents of your m1_drive_timed.py and paste that text into this file below these comments.
 #   If your program says and prints anything at the start change it to print and say "Drive using encoders"
 
-# TODO: 3. Add a beep after the drive motors stop (see code below).  Test your code to hear the beep AFTER movement.
+# DONE: 3. Add a beep after the drive motors stop (see code below).  Test your code to hear the beep AFTER movement.
 #   ev3.Sound.beep().wait()
 
-# TODO: 4. Instead of using the run_forever, time.sleep, stop pattern switch to using the run_to_rel_pos command.
+# DONE: 4. Instead of using the run_forever, time.sleep, stop pattern switch to using the run_to_rel_pos command.
 #   You will need to determine the position_sp value to pass into the run_to_rel_pos command as a named argument.
 #   Assume the diameter of the wheel is 1.3" (close enough).  A 1.3" diameter wheel results in approximately a 4"
 #     circumference, so 360 degrees = 4 inches of travel.
@@ -29,9 +29,9 @@ Authors: David Fisher and Cheryl He, Rebecca Ni, and Sydney Larson.
 #        -- speed_sp
 #        -- stop_action
 
-# TODO: 5. Make sure the beep happens AFTER the motors stop.  Use the wait_while command to block code execution.
+# DONE: 5. Make sure the beep happens AFTER the motors stop.  Use the wait_while command to block code execution.
 
-# TODO: 6. Formally test your work. When you think you have the problem complete run these tests:
+# DONE: 6. Formally test your work. When you think you have the problem complete run these tests:
 #   200 dps 24 inches (make sure it drives within 2 inches of the target distance)
 #   400 dps 24 inches (make sure it drives within 2 inches of the target distance)
 #   800 dps 24 inches (make sure it drives within 2 inches of the target distance)
@@ -40,13 +40,13 @@ Authors: David Fisher and Cheryl He, Rebecca Ni, and Sydney Larson.
 #   400 dps -36 inches (make sure it drives within 3 inches of the target distance)
 # Add more tests as you see fit.  Ideally you should be +/- 10% of the target goal this time.
 
-# TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
+# DONE: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
 #
 # Observations you should make, run_to_rel_pos is easier to use since it uses encoders that are independent of speed.
 
 
 import ev3dev.ev3 as ev3
-import time
+# import time
 
 
 def main():
@@ -68,16 +68,17 @@ def main():
         m = 0.01
         motor_dps = int(input("Enter a speed for the motor (0 to 900 ""dps): "))
         motor_inps = m * motor_dps
-        dis_in = int(input("Enter a distance to drive (inches): "))
-        time_s = dis_in / motor_inps
-        if motor_dps == 0 or dis_in == 0:
+        inches_target = int(input("Enter a distance to drive (inches): "))
+        degrees_per_inch = 90
+        motor_turns_needed_in_degrees = inches_target * degrees_per_inch
+        if motor_dps == 0 or motor_turns_needed_in_degrees == 0:
             break
-
-        left_motor.run_forever(speed_sp=motor_dps, time_sp=time_s)
-        right_motor.run_forever(speed_sp=motor_dps, time_sp=time_s)
-        time.sleep(time_s)
-        left_motor.stop()
-        right_motor.stop(stop_action="brake")
+        left_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp=motor_dps, stop_action = ev3.Motor.STOP_ACTION_BRAKE)
+        right_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp = motor_dps, stop_action = ev3.Motor.STOP_ACTION_BRAKE)
+        ev3.Sound.beep().wait()
 
     print("Goodbye!")
     ev3.Sound.speak("Goodbye").wait()
+
+
+main()
