@@ -6,7 +6,7 @@ You will ask the user for how many sides they would like in their polygon, the l
 Then your robot will drive that polygon shape.
 
 Authors: David Fisher and Sydney, Rebecca, Cheryl.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
 import robot_controller as robo
@@ -36,6 +36,7 @@ def main():
 
         # TODO: 2. Individually implement the code here to use your drive_inches and turn_degrees library methods to
         # drive a polygon with the correct number of sides. (Hint: You will add 3 lines of code. What are they?).
+
 
         # TODO: 3. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
         #   You are done with the Motors unit!
