@@ -39,8 +39,8 @@ def main():
 
         for k in range(sides):
             robot.drive_inches(edge_length_in, speed_deg_per_second)
-            robot.turn_degrees((sides - 2) * 180, speed_deg_per_second)
-            
+            robot.turn_degrees(turn_amount, speed_deg_per_second)
+
         # TODO: 3. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
         #   You are done with the Motors unit!
         #
