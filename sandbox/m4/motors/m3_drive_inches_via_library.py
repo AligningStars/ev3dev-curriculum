@@ -5,16 +5,16 @@ The team should work together and pick one team member to type code into libs/ro
 constructor and a method called drive_inches.
 
 Authors: David Fisher and Sydney, Rebecca, Cheryl.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
-# TODO: 2. On your computer right click on the libs folder in PyCharm, select Mark Directory as... Sources Root
+# DONE: 2. On your computer right click on the libs folder in PyCharm, select Mark Directory as... Sources Root
 #   That should fix the error on the import robot_controller as robo line below (expand the imports below)
 #   Marking that folder as a Source Root will allow any module in that folder to be used globally in this project.
 #   Note, when that folder is uploaded to the EV3, it wil be in the folder /home/robot/csse120/libs
 #   That folder path is special on your robot because it is set as the PYTHONPATH (done within the .bashrc file)
 #   Normally you can't just use a module in some random folder, but the libs folder has been setup special.
 
-# TODO: 3. Have everyone talk about this problem together then pick one team member to modify libs/robot_controller.py
+# DONE: 3. Have everyone talk about this problem together then pick one team member to modify libs/robot_controller.py
 # as necessary to make the code below perform the same task as the prior module. As mentioned in the top doc-string for
 # the file, you may not modify the code below.  Warning, make sure you UPLOAD the library to the robot before running
 # this module.
@@ -55,7 +55,6 @@ def main():
         inches_target = int(input("Distance (inches): "))
         if inches_target == 0:
             break
-
         robot.drive_inches(inches_target, speed_deg_per_second)
         ev3.Sound.beep().wait()  # Fun little beep
 

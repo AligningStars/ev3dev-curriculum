@@ -65,16 +65,14 @@ def main():
 
     time_s = 1  # Any value other than 0.
     while time_s != 0:
-        m = 0.01
         motor_dps = int(input("Enter a speed for the motor (0 to 900 ""dps): "))
-        motor_inps = m * motor_dps
         inches_target = int(input("Enter a distance to drive (inches): "))
         degrees_per_inch = 90
         motor_turns_needed_in_degrees = inches_target * degrees_per_inch
         if motor_dps == 0 or motor_turns_needed_in_degrees == 0:
             break
-        left_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp=motor_dps, stop_action = ev3.Motor.STOP_ACTION_BRAKE)
-        right_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp = motor_dps, stop_action = ev3.Motor.STOP_ACTION_BRAKE)
+        left_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp=motor_dps, stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        right_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp=motor_dps, stop_action=ev3.Motor.STOP_ACTION_BRAKE)
         ev3.Sound.beep().wait()
 
     print("Goodbye!")
