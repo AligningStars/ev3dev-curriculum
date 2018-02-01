@@ -12,15 +12,11 @@
 """
 
 import ev3dev.ev3 as ev3
-import math
-import time
 
 
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
-    
-    # TODO: Implement the Snatch3r class as needed when working the sandox exercises
-    # (and delete these comments)
+
     def __init__(self):
         """Construct the left and right motors"""
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
@@ -31,17 +27,25 @@ class Snatch3r(object):
         assert self.right_motor.connected
 
     def drive_inches(self, inches_target, motor_dps):
-        # Connect two large motors on output ports B and C
+        """Drive the desired number of inches as inputed by the user"""
+        assert self.left_motor.connected
+        assert self.right_motor.connected
+
         degrees_per_inch = 90
         motor_turns_needed_in_degrees = inches_target * degrees_per_inch
-        self.left_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp=motor_dps,
-                                  stop_action=ev3.Motor.STOP_ACTION_BRAKE)
-        self.right_motor.run_to_rel_pos(position_sp=motor_turns_needed_in_degrees, speed_sp=motor_dps,
-                                   stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        self.left_motor.run_to_rel_pos(
+            position_sp=motor_turns_needed_in_degrees, speed_sp=motor_dps,
+            stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        self.right_motor.run_to_rel_pos(
+            position_sp=motor_turns_needed_in_degrees, speed_sp=motor_dps,
+            stop_action=ev3.Motor.STOP_ACTION_BRAKE)
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
     def turn_degrees(self, degrees_to_turn, turn_speed_sp):
+        assert self.left_motor.connected
+        assert self.right_motor.connected
+
         degrees = degrees_to_turn * 4.44
         if turn_speed_sp > 0:
             self.left_motor.run_to_rel_pos(position_sp=-degrees,
