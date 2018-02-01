@@ -19,7 +19,8 @@ Authors: David Fisher and Sydney, Rebecca, Cheryl.
 #
 #   def turn_degrees(self, degrees_to_turn, turn_speed_sp):
 #
-#   Develop your code as a team within the robot_controller.py file and make sure all team member understand it.
+#   Develop your code as a team withpythnin the robot_controller.py file and
+# make sure all team member understand it.
 #   MAKE SOMEONE DIFFERENT TYPE!  You may not allow the same person to type that typed the drive_inches method.
 #   In that library method:
 #     To make a left turn (positive degrees_to_turn values) at a given turn_speed_sp set the left wheel to
@@ -70,7 +71,7 @@ def main():
         turn_speed_sp = int(input("Speed (0 to 900 dps): "))
         if turn_speed_sp == 0:
             break
-        degrees_to_turn = int(input("Distance (inches): "))
+        degrees_to_turn = int(input("Degrees (degrees): "))
         if degrees_to_turn == 0:
             break
         robot.turn_degrees(degrees_to_turn, turn_speed_sp)
