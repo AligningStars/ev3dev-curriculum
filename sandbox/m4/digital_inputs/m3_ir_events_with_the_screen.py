@@ -105,7 +105,8 @@ def main():
     rc4.on_red_up = lambda button_state: handle_red_up_4(button_state, dc)
 
     while dc.running:
-        # TODO: 4. Call the .process() method on your channel 1 RemoteControl object, then review and run your code.
+        # DONE: 4. Call the .process() method on your channel 1 RemoteControl
+        # object, then review and run your code.
         #   Review the handle functions below to see how they draw to the screen.  They are already finished.
 
         rc1.process()
@@ -115,7 +116,7 @@ def main():
         rc2.process()
         rc3.process()
         rc4.process()
-    
+
         # TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
         #
         # Observations you should make, IR buttons work exactly like buttons on the EV3.
