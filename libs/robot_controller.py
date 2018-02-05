@@ -112,3 +112,11 @@ class Snatch3r(object):
         self.arm_motor.run_to_abs_pos(position_sp=0, speed_sp=self.MAX_SPEED)
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
         ev3.Sound.beep().wait()
+
+    def drive_left(self):
+        assert self.left_motor
+        self.left_motor.run_forever()
+
+    def drive_right(self):
+        assert self.right_motor
+        self.right_motor.run_forever()
