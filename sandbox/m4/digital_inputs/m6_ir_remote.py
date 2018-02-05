@@ -70,7 +70,7 @@ def main():
     arm.on_red_up = lambda state:handle_arm_up_button
     arm.on_red_down = lambda state:handle_arm_down_button
     arm.on_blue_up = lambda state: handle_calibrate_button(True, robot)
-    arm.on_blue_down = lambda state:handle_shutdown(True, robot)
+    arm.on_blue_down = lambda state:handle_shutdown(True, dc)
 
 
     # For our standard shutdown button.
