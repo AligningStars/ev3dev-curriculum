@@ -57,6 +57,7 @@ def main():
     btn.on_down = handle_down_button
     btn.on_left = handle_left_button
     btn.on_right = handle_right_button
+    btn.on_backspace = lambda state: handle_shutdown(True, dc)
 
     # TODO: 5. Note #4 is lower (this is TO DO #5 which you should do after #4).
     # Add a lambda callback for on_backspace.  The syntax of lambda is:
@@ -77,7 +78,8 @@ def main():
 # Button event callback functions
 # ----------------------------------------------------------------------
 
-# TODO: 4. Implement the up, down, left, and right callback functions as follows:
+# DONE: 4. Implement the up, down, left, and right callback functions as
+# follows:
 #   handle_up_button - when state is True (a press), call play_song_by_individual_tones()
 #     You can leave the print messages below, just add the new requirement stated above.
 #   handle_down_button - when state is True (a press), call play_song_by_notes_list()
@@ -120,7 +122,7 @@ def handle_right_button(button_state):
     else:
         print("Right button was released")
 
-# TODO: 6. Implement the handle_shutdown function.
+# DONE: 6. Implement the handle_shutdown function.
 #   Function signature should be:
 #       def handle_shutdown(button_state, dc):
 #   When the button is pressed (state is True)
@@ -134,7 +136,9 @@ def handle_right_button(button_state):
 # to instead say "Press Back to exit this program.
 
 def handle_shutdown(button_state, dc):
-    
+    if button_state:
+        print("back")
+        dc.running = False
 
 # TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
 #
