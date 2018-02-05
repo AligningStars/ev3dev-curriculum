@@ -45,7 +45,7 @@ def main():
     # Buttons on EV3 (we keep giving you this line, but you could have typed it)
     btn = ev3.Button()
 
-    # TODO: 3. Just below this comment add SIMPLE (no lambda) callbacks for:
+    # DONE: 3. Just below this comment add SIMPLE (no lambda) callbacks for:
     #   .on_up to call handle_up_button (that function already exist below, you will modify it in todo4)
     #   .on_down to call handle_down_button (that function does not exist yet, you will write it in todo4)
     #   .on_left to call handle_left_button (that function does not exist yet, you will write it in todo4)
@@ -59,7 +59,8 @@ def main():
     btn.on_right = handle_right_button
     btn.on_backspace = lambda state: handle_shutdown(True, dc)
 
-    # TODO: 5. Note #4 is lower (this is TO DO #5 which you should do after #4).
+    # DONE: 5. Note #4 is lower (this is TO DO #5 which you should do after
+    # #4).
     # Add a lambda callback for on_backspace.  The syntax of lambda is:
     #   btn.on_backspace = lambda predefined_inputs: function_name(parameters)
     # You will need to change the predefined_inputs, function_name, and parameters from that syntax template.
@@ -140,7 +141,8 @@ def handle_shutdown(button_state, dc):
         print("back")
         dc.running = False
 
-# TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
+# DONE: 7. Call over a TA or instructor to sign your team's checkoff sheet and
+# do a code review.
 #
 # Observations you should make, button events are better because you get called only once per press, however, callbacks
 #   make it a bit tricker to pass data around (which is why we used the DataContainer object).
