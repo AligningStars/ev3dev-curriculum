@@ -92,7 +92,7 @@ class Snatch3r(object):
 
         self.arm_motor.position = 0
 
-    def arm_up(self, touch_sensor):
+    def arm_up(self):
         assert self.touch_sensor
         assert self.arm_motor
         self.arm_motor.run_forever(speed_sp=self.MAX_SPEED)
@@ -102,7 +102,7 @@ class Snatch3r(object):
             speed_sp=self.MAX_SPEED)
         while True:
             time.sleep(0.01)
-            if touch_sensor.is_pressed:
+            if self.touch_sensor.is_pressed:
                 break
         self.arm_motor.stop_action = ev3.MediumMotor(ev3.OUTPUT_A).STOP_ACTION_BRAKE
         ev3.Sound.beep().wait()
