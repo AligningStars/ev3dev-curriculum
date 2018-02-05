@@ -21,6 +21,7 @@ class Snatch3r(object):
         """Construct the left and right motors"""
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
 
         # Check that the motors are actually connected
         assert self.left_motor.connected
@@ -63,3 +64,42 @@ class Snatch3r(object):
                                             stop_action=ev3.Motor.STOP_ACTION_BRAKE)
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+
+    def arm_calibration(self, touch_sensor):
+        MAX_SPEED = 900
+        self.arm_motor.run_forever(speed_sp=MAX_SPEED)
+        while True:
+            self.arm_motor.sleep(0.01)
+            if touch_sensor.is_pressed:
+                break
+
+        self.arm_motor.stop_action = ev3.MediumMotor(
+            ev3.OUTPUT_A).STOP_ACTION_BRAKE
+        ev3.Sound.beep().wait()
+
+        arm_revolutions_for_full_range = 14.2 * 360
+        self.arm_motor.run_to_rel_pos(
+            position_sp=-arm_revolutions_for_full_range)
+        self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        ev3.Sound.beep().wait()
+
+        self.arm_motor.position = 0
+
+    def arm_up(self, touch_sensor):
+        MAX_SPEED = 900
+        self.arm_motor.run_forever(speed_sp=MAX_SPEED)
+        arm_revolutions_for_full_range = 14.2 * 360
+        self.arm_motor.run_to_rel_pos(
+            position_sp=arm_revolutions_for_full_range, speed_sp=MAX_SPEED)
+        while True:
+            time.sleep(0.01)
+            if touch_sensor.is_pressed:
+                break
+        self.arm_motor.stop_action = ev3.MediumMotor(ev3.OUTPUT_A).STOP_ACTION_BRAKE
+        ev3.Sound.beep().wait()
+
+    def arm_down(self):
+        MAX_SPEED = 900
+        self.arm_motor.run_to_abs_pos(position_sp=0, speed_sp=MAX_SPEED)
+        self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        ev3.Sound.beep().wait()
