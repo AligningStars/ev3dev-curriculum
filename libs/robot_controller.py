@@ -120,3 +120,9 @@ class Snatch3r(object):
     def drive_right(self):
         assert self.right_motor
         self.right_motor.run_forever()
+
+    def shutdown(self):
+        assert self.right_motor
+        assert self.left_motor
+        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
