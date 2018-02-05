@@ -24,14 +24,13 @@ class Snatch3r(object):
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
-        self.touch_sensor = ev3.TouchSensor
+        self.touch_sensor = ev3.TouchSensor()
         self.MAX_SPEED = 900
 
         # Check that the motors are actually connected
         assert self.left_motor.connected
         assert self.right_motor.connected
         assert self.arm_motor
-
 
     def drive_inches(self, inches_target, motor_dps):
         """Drive the desired number of inches as inputed by the user"""

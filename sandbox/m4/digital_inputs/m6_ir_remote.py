@@ -63,7 +63,11 @@ def main():
 
     drive = ev3.RemoteControl(channel=1)
     arm = ev3.RemoteControl(channel=2)
-    drive.on_red_up = lambda state
+
+    drive.on_red_up = lambda state:
+    arm.on_red_up = lambda state:handle_arm_up_button()
+    arm.on_red_down = lambda state:handle_arm_down_button()
+    arm
 
 
     # For our standard shutdown button.
@@ -142,6 +146,8 @@ def handle_shutdown(button_state, dc):
     """
     if button_state:
         dc.running = False
+
+def
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
