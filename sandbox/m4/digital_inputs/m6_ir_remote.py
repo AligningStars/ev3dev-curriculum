@@ -30,7 +30,6 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 
 import ev3dev.ev3 as ev3
 import time
-
 import robot_controller as robo
 
 # Note that todo2 is farther down in the code.  That method needs to be written before you do todo3.
@@ -61,6 +60,12 @@ def main():
     # TODO: 4. Add the necessary IR handler callbacks as per the instructions above.
     # Remote control channel 1 is for driving the crawler tracks around (none of these functions exist yet below).
     # Remote control channel 2 is for moving the arm up and down (all of these functions already exist below).
+
+    if ev3.RemoteControl(channel=1):
+        rc = ev3.LargeMotor
+    if ev3.RemoteControl(channel=2):
+        rc = ev3.MediumMotor
+
 
     # For our standard shutdown button.
     btn = ev3.Button()
