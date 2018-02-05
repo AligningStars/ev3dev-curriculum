@@ -61,10 +61,9 @@ def main():
     # Remote control channel 1 is for driving the crawler tracks around (none of these functions exist yet below).
     # Remote control channel 2 is for moving the arm up and down (all of these functions already exist below).
 
-    if ev3.RemoteControl(channel=1):
-        rc = ev3.LargeMotor
-    if ev3.RemoteControl(channel=2):
-        rc = ev3.MediumMotor
+    drive = ev3.RemoteControl(channel=1)
+    arm = ev3.RemoteControl(channel=2)
+    drive.on_red_up = lambda state
 
 
     # For our standard shutdown button.
