@@ -25,8 +25,8 @@
     -- Pressing the Back button will allow your program to end.  It should stop motors, turn on both green LEDs, and
        then print and say Goodbye.  You will need to implement a new robot method called shutdown to handle this task.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and Cheryl, Sydney, Rebecca.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
 import time
@@ -64,10 +64,13 @@ def main():
     drive = ev3.RemoteControl(channel=1)
     arm = ev3.RemoteControl(channel=2)
 
-    drive.on_red_up = lambda state:
-    arm.on_red_up = lambda state:handle_arm_up_button()
-    arm.on_red_down = lambda state:handle_arm_down_button()
-    arm
+    drive.on_red_up = lambda state:left_drive(True, robot)
+    drive.on_blue_up = lambda state:right_drive(True, robot)
+
+    arm.on_red_up = lambda state:handle_arm_up_button
+    arm.on_red_down = lambda state:handle_arm_down_button
+    arm.on_blue_up = lambda state: handle_calibrate_button(True, robot)
+    arm.on_blue_down = lambda state:handle_shutdown(True, robot)
 
 
     # For our standard shutdown button.
@@ -147,7 +150,13 @@ def handle_shutdown(button_state, dc):
     if button_state:
         dc.running = False
 
-def
+def left_drive(button_state,robot):
+    if button_state:
+        robot.drive_left()
+
+def right_drive(button_state,robot):
+    if button_state:
+        robot.drive_right()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
