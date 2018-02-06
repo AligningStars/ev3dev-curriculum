@@ -64,13 +64,15 @@ def main():
     drive = ev3.RemoteControl(channel=1)
     arm = ev3.RemoteControl(channel=2)
 
-    drive.on_red_up = lambda state:left_drive(True, robot)
-    drive.on_blue_up = lambda state:right_drive(True, robot)
+    drive.on_red_up = lambda state: drive_forward(True, robot)
+    drive.on_red_down = lambda state: drive_backward(True, robot)
+    drive.on_blue_up = lambda state: turn_left(True, robot)
+    drive.on_blue_down = lambda state: turn_right(True, robot)
 
-    arm.on_red_up = lambda state:handle_arm_up_button
-    arm.on_red_down = lambda state:handle_arm_down_button
+    arm.on_red_up = lambda state: handle_arm_up_button(True, robot)
+    arm.on_red_down = lambda state: handle_arm_down_button(True, robot)
     arm.on_blue_up = lambda state: handle_calibrate_button(True, robot)
-    arm.on_blue_down = lambda state:handle_shutdown(True, dc)
+    arm.on_blue_down = lambda state: handle_shutdown(True, dc)
 
 
     # For our standard shutdown button.
@@ -150,13 +152,53 @@ def handle_shutdown(button_state, dc):
     if button_state:
         dc.running = False
 
-def left_drive(button_state,robot):
-    if button_state:
-        robot.drive_left()
 
-def right_drive(button_state,robot):
-    if button_state:
-        robot.drive_right()
+def drive_forward(button_state, robot):
+    assert robot.left_motor.connected
+    assert robot.right_motor.connected
+    while button_state:
+        robot.left_motor.run_forever(speed_sp=900)
+        robot.right_motor.run_forever(speed_sp=900)
+        break
+    if not button_state:
+        robot.left_motor.stop(stop_action='brake')
+        robot.right_motor.stop(stop_action='brake')
+
+
+def drive_backward(button_state, robot):
+    assert robot.left_motor.connected
+    assert robot.right_motor.connected
+    while button_state:
+        robot.left_motor.run_forever(speed_sp=-900)
+        robot.right_motor.run_forever(speed_sp=-900)
+        break
+    if not button_state:
+        robot.left_motor.stop(stop_action='brake')
+        robot.right_motor.stop(stop_action='brake')
+
+
+def turn_left(button_state, robot):
+    assert robot.left_motor.connected
+    assert robot.right_motor.connected
+    while button_state:
+        robot.left_motor.run_forever(speed_sp=-900)
+        robot.right_motor.run_forever(speed_sp=900)
+        break
+    if not button_state:
+        robot.left_motor.stop(stop_action='brake')
+        robot.right_motor.stop(stop_action='brake')
+
+
+def turn_right(button_state, robot):
+    assert robot.left_motor.connected
+    assert robot.right_motor.connected
+    while button_state:
+        robot.left_motor.run_forever(speed_sp=900)
+        robot.right_motor.run_forever(speed_sp=-900)
+        break
+    if not button_state:
+        robot.left_motor.stop(stop_action='brake')
+        robot.right_motor.stop(stop_action='brake')
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
