@@ -110,8 +110,7 @@ def main():
     # Note: on EV3 you call connect_to_pc, but in the PC code it will call connect_to_ev3
     my_delegate = MyDelegate()
     mqtt_client = com.MqttClient(my_delegate)
-    my_delegate.mqtt_client = mqtt_client
-    mqtt_client.connect_to_ev3()
+    mqtt_client.connect_to_pc()
 
     # Buttons on EV3 (these obviously assume TO DO: 3. is done)
     btn = ev3.Button()
