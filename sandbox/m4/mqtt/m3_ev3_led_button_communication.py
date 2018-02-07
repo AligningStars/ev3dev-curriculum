@@ -73,7 +73,7 @@ class MyDelegate(object):
     def __init__(self):
         self.running = True
 
-    def set_led(self,led_side_string, led_color_string):
+    def set_led(self, led_side_string, led_color_string):
         print("Received: {} {}".format(led_side_string, led_color_string))
         led_side = None
         if led_side_string == "left":
@@ -94,6 +94,7 @@ class MyDelegate(object):
                 led_side_string, led_color_string))
         else:
             ev3.Leds.set_color(led_side, led_color)
+
 
 def main():
     print("--------------------------------------------")
@@ -136,7 +137,7 @@ def handle_button_press(button_state, mqtt_client, button_name):
     """Handle IR / button event."""
     if button_state:
         print("{} button was pressed".format(button_name))
-        mqtt_client.send_message("button_pressed",[button_name])
+        mqtt_client.send_message("button_pressed", [button_name])
         # DONE: 4. Send a message using MQTT that will:
         #   -- Call the method called "button_pressed" on the delegate at the other end of the pipe.
         #   -- Pass the parameters [button_name] as a list.

@@ -20,7 +20,7 @@ class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
 
     def __init__(self):
-        """Construct the left and right motors"""
+        """Construct the left and right motors"""   # TODO
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
@@ -29,14 +29,14 @@ class Snatch3r(object):
 
         # Check that the motors are actually connected
         assert self.left_motor.connected
-        assert self.right_motor.connected
+        assert self.right_motor.connected   # TODO
         assert self.arm_motor
         assert self.touch_sensor
 
     def drive_inches(self, inches_target, motor_dps):
         """Drive the desired number of inches as inputed by the user,
         when positive moves in a positive direction, when input is negative
-        moves in negative direction"""
+        moves in negative direction"""      # TODO dps
         assert self.left_motor.connected
         assert self.right_motor.connected
 
@@ -54,10 +54,11 @@ class Snatch3r(object):
     def turn_degrees(self, degrees_to_turn, turn_speed_sp):
         """"Turn desired number of degrees. If positive turn_speed robot
         should turn left, if negative turn_speed motor should turn right"""
+        # TODO turn_speed
         assert self.left_motor.connected
         assert self.right_motor.connected
 
-        degrees = degrees_to_turn * 4.44
+        degrees = degrees_to_turn * 4.44        # TODO match comment and code
         if turn_speed_sp > 0:
             self.left_motor.run_to_rel_pos(position_sp=-degrees,
                                            speed_sp=turn_speed_sp,
@@ -86,7 +87,7 @@ class Snatch3r(object):
                 break
 
         self.arm_motor.stop_action = ev3.MediumMotor(
-            ev3.OUTPUT_A).STOP_ACTION_BRAKE
+            ev3.OUTPUT_A).STOP_ACTION_BRAKE     # TODO
         ev3.Sound.beep().wait()
 
         arm_revolutions_for_full_range = 14.2 * 360
@@ -99,7 +100,7 @@ class Snatch3r(object):
 
     def arm_up(self):
         """Move robot arm in the positive y-direction relative to rested
-        position"""
+        position"""     # TODO conflict
         assert self.touch_sensor
         assert self.arm_motor
         self.arm_motor.run_forever(speed_sp=self.MAX_SPEED)
@@ -148,7 +149,7 @@ class Snatch3r(object):
         self.right_motor.run_forever(speed_sp=right_speed)
 
     def shutdown(self):
-        """Shutdown both motors to completely stop movement"""
+        """Shutdown both motors to completely stop movement"""  # TODO stop motion arm
         assert self.right_motor
         assert self.left_motor
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
@@ -159,3 +160,4 @@ class Snatch3r(object):
         self.running = True
         while self.running:
             time.sleep(0.1)  # Do nothing (except receive MQTT messages) until an MQTT message calls shutdown.
+
