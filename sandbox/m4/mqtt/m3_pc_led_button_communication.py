@@ -48,7 +48,7 @@ def main():
     left_black_button.grid(row=3, column=0)
     left_black_button['command'] = lambda: send_led_command(mqtt_client, "left", "black")
 
-    button_label = ttk.Label(main_frame, text="  Buttom messages from EV3  ")
+    button_label = ttk.Label(main_frame, text="  Button messages from EV3  ")
     button_label.grid(row=1, column=1)
 
     button_message = ttk.Label(main_frame, text="--")
