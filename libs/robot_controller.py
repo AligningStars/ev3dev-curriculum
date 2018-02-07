@@ -123,29 +123,29 @@ class Snatch3r(object):
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
         ev3.Sound.beep().wait()
 
-    def drive_left(self):
+    def drive_left(self,left_speed):
         """Make only left motor run to turn robot right"""
         assert self.left_motor
-        self.left_motor.run_forever()
+        self.left_motor.run_forever(speed_sp=left_speed)
 
-    def drive_right(self):
+    def drive_right(self,right_speed):
         """Make only right motor run to turn robot left"""
         assert self.right_motor
-        self.right_motor.run_forever()
+        self.right_motor.run_forever(speed_sp=right_speed)
 
-    def drive_forward(self):
+    def drive_forward(self,left_speed,right_speed):
         """Make both motors run to drive robot forward"""
         assert self.left_motor
         assert self.right_motor
-        self.left_motor.run_forever()
-        self.right_motor.run_forever()
+        self.left_motor.run_forever(speed_sp=left_speed)
+        self.right_motor.run_forever(speed_sp=right_speed)
 
-    def drive_backward(self):
+    def drive_backward(self,left_speed,right_speed):
         """Make both motors run to drive robot forward"""
         assert self.left_motor
         assert self.right_motor
-        self.left_motor
-        self.right_motor.run_forever()
+        self.left_motor.run_forever(speed_sp=-left_speed)
+        self.right_motor.run_forever(speed_sp=right_speed)
 
     def shutdown(self):
         """Shutdown both motors to completely stop movement"""
@@ -153,3 +153,9 @@ class Snatch3r(object):
         assert self.left_motor
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.running = False
+
+    def loop_forever(self):
+        self.running = True
+        while self.running:
+            time.sleep(0.1)  # Do nothing (except receive MQTT messages) until an MQTT message calls shutdown.
