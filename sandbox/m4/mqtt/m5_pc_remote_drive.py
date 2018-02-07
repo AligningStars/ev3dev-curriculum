@@ -135,17 +135,21 @@ def send_up(mqtt_client):
     print("arm_up")
     mqtt_client.send_message("arm_up")
 
+
 def send_down(mqtt_client):
     print("arm_down")
     mqtt_client.send_message("arm_down")
+
 
 def send_forward(mqtt_client, entry, entry1):
     print("drive_forward")
     mqtt_client.send_message("drive_forward")
 
+
 def send_left(mqtt_client,entry):
     print("drive_left")
     mqtt_client.send_message("drive_left")
+
 
 def send_right(mqtt_client,entry):
     print("drive_right")
@@ -156,9 +160,11 @@ def send_stop(mqtt_client):
     print("shutdown")
     mqtt_client.send_message("shutdown")
 
+
 def send_back(mqtt_client):
     print("drive_back")
     mqtt_client.send_message("drive_back")
+
 
 # Quit and Exit button callbacks
 def quit_program(mqtt_client, shutdown_ev3):
