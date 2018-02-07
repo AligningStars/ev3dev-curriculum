@@ -143,11 +143,11 @@ def send_forward(mqtt_client, entry, entry1):
     print("drive_forward")
     mqtt_client.send_message("drive_forward")
 
-def send_left(mqtt_client,):
+def send_left(mqtt_client,entry):
     print("drive_left")
     mqtt_client.send_message("drive_left")
 
-def send_right(mqtt_client):
+def send_right(mqtt_client,entry):
     print("drive_right")
     mqtt_client.send_message("drive_right")
 
