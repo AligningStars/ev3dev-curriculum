@@ -22,8 +22,8 @@ You will need to have the following features:
 
 You can start by running the code to see the GUI, but don't expect button clicks to do anything useful yet.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and Sydney, Cheryl, Rebecca.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import tkinter
 from tkinter import ttk
@@ -32,9 +32,11 @@ import mqtt_remote_method_calls as com
 
 
 def main():
-    # TODO: 2. Setup an mqtt_client.  Notice that since you don't need to receive any messages you do NOT need to have
+    # DONE: 2. Setup an mqtt_client.  Notice that since you don't need to
+    # receive any messages you do NOT need to have
     # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
-    mqtt_client = None  # Delete this line, it was added temporarily so that the code we gave you had no errors.
+    mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
     root.title("MQTT Remote")
@@ -62,24 +64,34 @@ def main():
 
     forward_button = ttk.Button(main_frame, text="Forward")
     forward_button.grid(row=2, column=1)
+    forward_button['command'] = lambda: send_forward(mqtt_client)
+    root.bind('<u>', lambda event: send_forward(mqtt_client))
     # forward_button and '<Up>' key is done for your here...
     # forward_button['command'] = lambda: some_callback1(mqtt_client, left_speed_entry, right_speed_entry)
     # root.bind('<Up>', lambda event: some_callback1(mqtt_client, left_speed_entry, right_speed_entry))
 
     left_button = ttk.Button(main_frame, text="Left")
     left_button.grid(row=3, column=0)
+    left_button['command'] = lambda: send_left(mqtt_client)
+    root.bind('<u>', lambda event: send_left(mqtt_client))
     # left_button and '<Left>' key
 
     stop_button = ttk.Button(main_frame, text="Stop")
     stop_button.grid(row=3, column=1)
+    stop_button['command'] = lambda: send_stop(mqtt_client)
+    root.bind('<u>', lambda event: send_stop(mqtt_client))
     # stop_button and '<space>' key (note, does not need left_speed_entry, right_speed_entry)
 
     right_button = ttk.Button(main_frame, text="Right")
     right_button.grid(row=3, column=2)
+    right_button['command'] = lambda: send_right(mqtt_client)
+    root.bind('<u>', lambda event: send_right(mqtt_client))
     # right_button and '<Right>' key
 
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid(row=4, column=1)
+    back_button['command'] = lambda: send_back(mqtt_client)
+    root.bind('<u>', lambda event: send_back(mqtt_client))
     # back_button and '<Down>' key
 
     up_button = ttk.Button(main_frame, text="Up")
@@ -120,11 +132,30 @@ def send_up(mqtt_client):
     print("arm_up")
     mqtt_client.send_message("arm_up")
 
-
 def send_down(mqtt_client):
     print("arm_down")
     mqtt_client.send_message("arm_down")
 
+def send_forward(mqtt_client):
+    print("drive_forward")
+    mqtt_client.send_message("drive_forward")
+
+def send_left(mqtt_client):
+    print("drive_left")
+    mqtt_client.send_message("drive_left")
+
+def send_right(mqtt_client):
+    print("drive_right")
+    mqtt_client.send_message("drive_right")
+
+
+def send_stop(mqtt_client):
+    print("shutdown")
+    mqtt_client.send_message("shutdown")
+
+def send_back(mqtt_client):
+    print("drive_back")
+    mqtt_client.send_message("drive_back")
 
 # Quit and Exit button callbacks
 def quit_program(mqtt_client, shutdown_ev3):

@@ -124,13 +124,27 @@ class Snatch3r(object):
         ev3.Sound.beep().wait()
 
     def drive_left(self):
-        """Make only left motor run"""
+        """Make only left motor run to turn robot right"""
         assert self.left_motor
         self.left_motor.run_forever()
 
     def drive_right(self):
-        """Make only right motor run"""
+        """Make only right motor run to turn robot left"""
         assert self.right_motor
+        self.right_motor.run_forever()
+
+    def drive_forward(self):
+        """Make both motors run to drive robot forward"""
+        assert self.left_motor
+        assert self.right_motor
+        self.left_motor.run_forever()
+        self.right_motor.run_forever()
+
+    def drive_backward(self):
+        """Make both motors run to drive robot forward"""
+        assert self.left_motor
+        assert self.right_motor
+        self.left_motor
         self.right_motor.run_forever()
 
     def shutdown(self):
