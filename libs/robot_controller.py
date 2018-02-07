@@ -150,10 +150,9 @@ class Snatch3r(object):
 
     def shutdown(self):
         """Shutdown both motors to completely stop movement"""  # TODO stop motion arm
-        assert self.right_motor
-        assert self.left_motor
-        self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
+        self.left_motor.run_forever(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        self.right_motor.run_forever(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        self.arm_motor.run_forever(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
         self.running = False
 
     def loop_forever(self):
