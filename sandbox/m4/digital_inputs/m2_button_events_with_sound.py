@@ -107,6 +107,7 @@ def handle_down_button(button_state):
     else:
         print("Down button was released")
 
+
 def handle_left_button(button_state):
     """Handle IR / button event."""
     if button_state:
@@ -114,6 +115,7 @@ def handle_left_button(button_state):
         speak()
     else:
         print("Left button was released")
+
 
 def handle_right_button(button_state):
     """Handle IR / button event."""
@@ -135,6 +137,7 @@ def handle_right_button(button_state):
 # You can also change the print message that said:
 #    "Press Ctrl C on your keyboard to exit this program (the Back button is not wired up to exit)"
 # to instead say "Press Back to exit this program.
+
 
 def handle_shutdown(button_state, dc):
     if button_state:
