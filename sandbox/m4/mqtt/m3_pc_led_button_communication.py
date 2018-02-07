@@ -5,7 +5,7 @@ to look at the code to see if you understand what is going on, but no changes ar
 
 See the m3_ev3_led_button_communication.py file for all the details.
 
-Author: David Fisher.
+Author: David Fisher, Cheryl He, Sydney Larson, Rebecca Ni.
 """
 
 import tkinter

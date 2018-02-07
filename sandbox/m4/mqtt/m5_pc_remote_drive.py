@@ -65,10 +65,8 @@ def main():
     forward_button = ttk.Button(main_frame, text="Forward")
     forward_button.grid(row=2, column=1)
     forward_button['command'] = lambda: send_forward(mqtt_client,
-                                                 left_speed_entry,
-                                                 right_speed_entry)
-    root.bind('<Up>', lambda event: send_forward(mqtt_client,
-                                                 left_speed_entry,
+                                                     left_speed_entry,right_speed_entry)
+    root.bind('<Up>', lambda event: send_forward(mqtt_client, left_speed_entry,
                                                  right_speed_entry))
     # forward_button and '<Up>' key is done for your here...
     # forward_button['command'] = lambda: some_callback1(mqtt_client, left_speed_entry, right_speed_entry)
@@ -77,7 +75,8 @@ def main():
     left_button = ttk.Button(main_frame, text="Left")
     left_button.grid(row=3, column=0)
     left_button['command'] = lambda: send_left(mqtt_client,left_speed_entry)
-    root.bind('<Left>', lambda event: send_left(mqtt_client,left_speed_entry))
+    root.bind('<Left>', lambda event: send_left(mqtt_client,
+                                                left_speed_entry))
     # left_button and '<Left>' key
 
     stop_button = ttk.Button(main_frame, text="Stop")
@@ -88,20 +87,16 @@ def main():
 
     right_button = ttk.Button(main_frame, text="Right")
     right_button.grid(row=3, column=2)
-    right_button['command'] = lambda: send_right(mqtt_client,
-                                                 right_speed_entry)
-    root.bind('<Right>', lambda event: send_right(mqtt_client,
-                                                  right_speed_entry))
+    right_button['command'] = lambda: send_right(mqtt_client,right_speed_entry)
+    root.bind('<Right>', lambda event: send_right(mqtt_client,right_speed_entry))
     # right_button and '<Right>' key
 
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid(row=4, column=1)
-    back_button['command'] = lambda: send_back(mqtt_client,
-                                                left_speed_entry,
-                                                right_speed_entry)
+    back_button['command'] = lambda: send_back(mqtt_client,left_speed_entry,
+                                               right_speed_entry)
     root.bind('<Down>', lambda event: send_back(mqtt_client,
-                                                left_speed_entry,
-                                                right_speed_entry))
+                                                left_speed_entry,right_speed_entry))
     # back_button and '<Down>' key
 
     up_button = ttk.Button(main_frame, text="Up")
@@ -140,47 +135,44 @@ def main():
 # Arm command callbacks
 def send_up(mqtt_client):
     print("arm_up")
-    mqtt_client.send_message("arm_up",[mqtt_client])
+    mqtt_client.send_message("arm_up")
 
 
 def send_down(mqtt_client):
     print("arm_down")
-    mqtt_client.send_message("arm_down",[mqtt_client])
+    mqtt_client.send_message("arm_down")
 
 
 def send_forward(mqtt_client, entry, entry1):
-    print("drive_forward")
-    mqtt_client.send_message("drive_forward",[mqtt_client,int(entry.get()),
-                                                              int(entry1.
-                                                                  get())])
+    print("drive_forward",[entry,entry1])
+    mqtt_client.send_message("drive_forward")
 
 
 def send_left(mqtt_client,entry):
-    print("drive_left")
-    mqtt_client.send_message("drive_left",[mqtt_client,int(entry.get)])
+    print("drive_left",[entry])
+    mqtt_client.send_message("drive_left")
 
 
 def send_right(mqtt_client,entry):
-    print("drive_right")
-    mqtt_client.send_message("drive_right",[mqtt_client,int(entry.get)])
+    print("drive_right",[entry])
+    mqtt_client.send_message("drive_right")
 
 
 def send_stop(mqtt_client):
     print("shutdown")
-    mqtt_client.send_message("shutdown",[mqtt_client])
+    mqtt_client.send_message("shutdown")
 
 
 def send_back(mqtt_client,entry,entry1):
-    print("drive_back")
-    mqtt_client.send_message("drive_back",[mqtt_client,int(entry.get()),
-                                           int(entry1.get())])
+    print("drive_back",[entry,entry1])
+    mqtt_client.send_message("drive_back")
 
 
 # Quit and Exit button callbacks
 def quit_program(mqtt_client, shutdown_ev3):
     if shutdown_ev3:
         print("shutdown")
-        mqtt_client.send_message("shutdown",[mqtt_client])
+        mqtt_client.send_message("shutdown")
     mqtt_client.close()
     exit()
 

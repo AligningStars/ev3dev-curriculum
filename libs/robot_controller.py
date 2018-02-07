@@ -15,28 +15,32 @@ import ev3dev.ev3 as ev3
 import time
 
 
-
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
 
     def __init__(self):
-        """Construct the left and right motors"""   # TODO
+        """Construct the left, right, and arm motors as well as the touch sensor, and sets the maximum speed"""
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.touch_sensor = ev3.TouchSensor()
+        self.color_sensor = ev3.ColorSensor()
+        self.ir_sensor = ev3.InfraredSensor
         self.MAX_SPEED = 900
 
         # Check that the motors are actually connected
         assert self.left_motor.connected
-        assert self.right_motor.connected   # TODO
+        assert self.right_motor.connected
         assert self.arm_motor
         assert self.touch_sensor
+        assert self.color_sensor
+        assert self.ir_sensor
 
     def drive_inches(self, inches_target, motor_dps):
         """Drive the desired number of inches as inputed by the user,
         when positive moves in a positive direction, when input is negative
-        moves in negative direction"""      # TODO dps
+        moves in negative direction. motor_dps stands for the speed of the
+        motor in degrees per second."""
         assert self.left_motor.connected
         assert self.right_motor.connected
 
@@ -52,9 +56,9 @@ class Snatch3r(object):
         self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
     def turn_degrees(self, degrees_to_turn, turn_speed_sp):
-        """"Turn desired number of degrees. If positive turn_speed robot
-        should turn left, if negative turn_speed motor should turn right"""
-        # TODO turn_speed
+        """Turn desired number of degrees. If positive turn_speed robot
+        should turn left, if negative turn_speed motor should turn right.
+        turn_speed_sp is the speed of the robot turning"""
         assert self.left_motor.connected
         assert self.right_motor.connected
 
@@ -86,8 +90,7 @@ class Snatch3r(object):
             if self.touch_sensor.is_pressed:
                 break
 
-        self.arm_motor.stop_action = ev3.MediumMotor(
-            ev3.OUTPUT_A).STOP_ACTION_BRAKE     # TODO
+        self.arm_motor.run_forever(stop_action=ev3.MediumMotor.STOP_ACTION_BRAKE)
         ev3.Sound.beep().wait()
 
         arm_revolutions_for_full_range = 14.2 * 360
@@ -100,14 +103,14 @@ class Snatch3r(object):
 
     def arm_up(self):
         """Move robot arm in the positive y-direction relative to rested
-        position"""     # TODO conflict
+        position"""     # TODO conflict test
         assert self.touch_sensor
         assert self.arm_motor
         self.arm_motor.run_forever(speed_sp=self.MAX_SPEED)
-        arm_revolutions_for_full_range = 14.2 * 360
-        self.arm_motor.run_to_rel_pos(
-            position_sp=arm_revolutions_for_full_range,
-            speed_sp=self.MAX_SPEED)
+        # arm_revolutions_for_full_range = 14.2 * 360
+        # self.arm_motor.run_to_rel_pos(
+        #     position_sp=arm_revolutions_for_full_range,
+        #     speed_sp=self.MAX_SPEED)
         while True:
             time.sleep(0.01)
             if self.touch_sensor.is_pressed:
@@ -124,24 +127,24 @@ class Snatch3r(object):
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
         ev3.Sound.beep().wait()
 
-    def drive_left(self,left_speed):
+    def drive_left(self, left_speed):
         """Make only left motor run to turn robot right"""
         assert self.left_motor
         self.left_motor.run_forever(speed_sp=left_speed)
 
-    def drive_right(self,right_speed):
+    def drive_right(self, right_speed):
         """Make only right motor run to turn robot left"""
         assert self.right_motor
         self.right_motor.run_forever(speed_sp=right_speed)
 
-    def drive_forward(self,left_speed,right_speed):
+    def drive_forward(self, left_speed, right_speed):
         """Make both motors run to drive robot forward"""
         assert self.left_motor
         assert self.right_motor
         self.left_motor.run_forever(speed_sp=left_speed)
         self.right_motor.run_forever(speed_sp=right_speed)
 
-    def drive_backward(self,left_speed,right_speed):
+    def drive_backward(self, left_speed, right_speed):
         """Make both motors run to drive robot forward"""
         assert self.left_motor
         assert self.right_motor
