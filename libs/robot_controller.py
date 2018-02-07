@@ -146,7 +146,7 @@ class Snatch3r(object):
         assert self.left_motor
         assert self.right_motor
         self.left_motor.run_forever(speed_sp=-left_speed)
-        self.right_motor.run_forever(speed_sp=right_speed)
+        self.right_motor.run_forever(speed_sp=-right_speed)
 
     def shutdown(self):
         """Shutdown both motors to completely stop movement"""  # TODO stop motion arm
