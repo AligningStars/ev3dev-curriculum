@@ -87,16 +87,16 @@ def main():
 
     right_button = ttk.Button(main_frame, text="Right")
     right_button.grid(row=3, column=2)
-    right_button['command'] = lambda: send_right(mqtt_client,right_speed_entry)
-    root.bind('<Right>', lambda event: send_right(mqtt_client,right_speed_entry))
+    right_button['command'] = lambda: send_right(mqtt_client, right_speed_entry)
+    root.bind('<Right>', lambda event: send_right(mqtt_client, right_speed_entry))
     # right_button and '<Right>' key
 
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid(row=4, column=1)
-    back_button['command'] = lambda: send_back(mqtt_client,left_speed_entry,
+    back_button['command'] = lambda: send_back(mqtt_client, left_speed_entry,
                                                right_speed_entry)
     root.bind('<Down>', lambda event: send_back(mqtt_client,
-                                                left_speed_entry,right_speed_entry))
+                                                left_speed_entry, right_speed_entry))
     # back_button and '<Down>' key
 
     up_button = ttk.Button(main_frame, text="Up")
@@ -145,7 +145,7 @@ def send_down(mqtt_client):
 
 def send_forward(mqtt_client, entry, entry1):
     print("drive_forward")
-    mqtt_client.send_message("drive_forward",[int(entry.get()),
+    mqtt_client.send_message("drive_forward", [int(entry.get()),
                                               int(entry1.get())])
 
 
@@ -154,9 +154,9 @@ def send_left(mqtt_client, entry):
     mqtt_client.send_message("drive_left", [int(entry.get())])
 
 
-def send_right(mqtt_client,entry):
+def send_right(mqtt_client, entry):
     print("drive_right")
-    mqtt_client.send_message("drive_right",[int(entry.get())])
+    mqtt_client.send_message("drive_right", [int(entry.get())])
 
 
 def send_stop(mqtt_client):
@@ -164,9 +164,9 @@ def send_stop(mqtt_client):
     mqtt_client.send_message("shutdown")
 
 
-def send_back(mqtt_client,entry,entry1):
+def send_back(mqtt_client, entry, entry1):
     print("drive_back")
-    mqtt_client.send_message("drive_back",[int(entry.get()),
+    mqtt_client.send_message("drive_back", [int(entry.get()),
                                               int(entry1.get())])
 
 

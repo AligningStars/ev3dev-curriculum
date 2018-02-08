@@ -130,16 +130,18 @@ class Snatch3r(object):
         ev3.Sound.beep().wait()
 
     def drive_left(self, left_speed):
-        """Make only left motor run to turn robot right"""
+        """Make only left motor run to turn robot left"""
         assert self.left_motor
-        self.left_motor.run_forever(speed_sp=left_speed)
-        self.right_motor.run_forever(speed_sp=-left_speed)
+        assert self.right_motor
+        self.left_motor.run_forever(speed_sp=-left_speed)
+        self.right_motor.run_forever(speed_sp=left_speed)
 
     def drive_right(self, right_speed):
-        """Make only right motor run to turn robot left"""
+        """Make only right motor run to turn robot right"""
         assert self.right_motor
-        self.right_motor.run_forever(speed_sp=right_speed)
-        self.left_motor.run_forever(right_speed=-right_speed)
+        assert self.left_motor
+        self.right_motor.run_forever(speed_sp=-right_speed)
+        self.left_motor.run_forever(right_speed=right_speed)
 
     def drive_forward(self, left_speed, right_speed):
         """Make both motors run to drive robot forward"""
@@ -157,10 +159,10 @@ class Snatch3r(object):
 
     def shutdown(self):
         """Shutdown both motors to completely stop movement"""  # TODO stop motion arm
-        self.left_motor.run_forever(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
-        self.right_motor.run_forever(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
-        self.arm_motor.run_forever(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
-        self.running = False
+        self.left_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        self.right_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        self.arm_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        #self.running = False
 
     def loop_forever(self):
         self.running = True
