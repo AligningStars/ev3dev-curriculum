@@ -74,7 +74,7 @@ def main():
 
     left_button = ttk.Button(main_frame, text="Left")
     left_button.grid(row=3, column=0)
-    left_button['command'] = lambda: send_left(mqtt_client,left_speed_entry)
+    left_button['command'] = lambda: send_left(mqtt_client, left_speed_entry)
     root.bind('<Left>', lambda event: send_left(mqtt_client,
                                                 left_speed_entry))
     # left_button and '<Left>' key
@@ -145,28 +145,28 @@ def send_down(mqtt_client):
 
 def send_forward(mqtt_client, entry, entry1):
     print("drive_forward")
-    mqtt_client.send_message("drive_forward",[mqtt_client,int(entry.get()),
+    mqtt_client.send_message("drive_forward",[int(entry.get()),
                                               int(entry1.get())])
 
 
-def send_left(mqtt_client,entry):
+def send_left(mqtt_client, entry):
     print("drive_left")
-    mqtt_client.send_message("drive_left",[mqtt_client,int(entry.get())])
+    mqtt_client.send_message("drive_left", [int(entry.get())])
 
 
 def send_right(mqtt_client,entry):
     print("drive_right")
-    mqtt_client.send_message("drive_right",[mqtt_client,int(entry.get())])
+    mqtt_client.send_message("drive_right",[int(entry.get())])
 
 
 def send_stop(mqtt_client):
     print("shutdown")
-    mqtt_client.send_message("shutdown",[mqtt_client])
+    mqtt_client.send_message("shutdown")
 
 
 def send_back(mqtt_client,entry,entry1):
     print("drive_back")
-    mqtt_client.send_message("drive_back",[mqtt_client,int(entry.get()),
+    mqtt_client.send_message("drive_back",[int(entry.get()),
                                               int(entry1.get())])
 
 
