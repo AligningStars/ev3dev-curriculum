@@ -129,11 +129,13 @@ class Snatch3r(object):
         """Make only left motor run to turn robot right"""
         assert self.left_motor
         self.left_motor.run_forever(speed_sp=left_speed)
+        self.right_motor.run_forever(speed_sp=-left_speed)
 
     def drive_right(self, right_speed):
         """Make only right motor run to turn robot left"""
         assert self.right_motor
         self.right_motor.run_forever(speed_sp=right_speed)
+        self.left_motor.run_forever(right_speed=-right_speed)
 
     def drive_forward(self, left_speed, right_speed):
         """Make both motors run to drive robot forward"""
