@@ -56,6 +56,8 @@ def main():
     right_speed_entry.insert(0, "600")
     right_speed_entry.grid(row=1, column=2)
 
+    turn_degrees = 90
+
     # TODO: 3. Implement the callbacks for the drive buttons. Set both the click and shortcut key callbacks.
     #
     # To help get you started the arm up and down buttons have been implemented.
@@ -74,7 +76,7 @@ def main():
 
     left_button = ttk.Button(main_frame, text="Left")
     left_button.grid(row=3, column=0)
-    left_button['command'] = lambda: send_left(mqtt_client, left_speed_entry)
+    left_button['command'] = lambda: send_left(mqtt_client, turn_degrees, left_speed_entry)
     root.bind('<Left>', lambda event: send_left(mqtt_client,
                                                 left_speed_entry))
     # left_button and '<Left>' key
@@ -149,9 +151,9 @@ def send_forward(mqtt_client, entry, entry1):
                                               int(entry1.get())])
 
 
-def send_left(mqtt_client, entry):
+def send_left(mqtt_client, entry, entry1):
     print("drive_left")
-    mqtt_client.send_message("drive_left", [int(entry.get())])
+    mqtt_client.send_message("turn_degrees", [int(entry.get()), int(entry1.get())])
 
 
 def send_right(mqtt_client, entry):
@@ -165,8 +167,8 @@ def send_stop(mqtt_client):
 
 
 def send_back(mqtt_client, entry, entry1):
-    print("drive_back")
-    mqtt_client.send_message("drive_back", [int(entry.get()),
+    print("drive_backward")
+    mqtt_client.send_message("drive_backward", [int(entry.get()),
                                               int(entry1.get())])
 
 
