@@ -65,7 +65,7 @@ def main():
     forward_button = ttk.Button(main_frame, text="Forward")
     forward_button.grid(row=2, column=1)
     forward_button['command'] = lambda: send_forward(mqtt_client,
-                                                     left_speed_entry, right_speed_entry)
+                                                     left_speed_entry,right_speed_entry)
     root.bind('<Up>', lambda event: send_forward(mqtt_client, left_speed_entry,
                                                  right_speed_entry))
     # forward_button and '<Up>' key is done for your here...
@@ -87,16 +87,16 @@ def main():
 
     right_button = ttk.Button(main_frame, text="Right")
     right_button.grid(row=3, column=2)
-    right_button['command'] = lambda: send_right(mqtt_client, right_speed_entry)
-    root.bind('<Right>', lambda event: send_right(mqtt_client, right_speed_entry))
+    right_button['command'] = lambda: send_right(mqtt_client,right_speed_entry)
+    root.bind('<Right>', lambda event: send_right(mqtt_client,right_speed_entry))
     # right_button and '<Right>' key
 
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid(row=4, column=1)
-    back_button['command'] = lambda: send_back(mqtt_client, left_speed_entry,
+    back_button['command'] = lambda: send_back(mqtt_client,left_speed_entry,
                                                right_speed_entry)
     root.bind('<Down>', lambda event: send_back(mqtt_client,
-                                                left_speed_entry, right_speed_entry))
+                                                left_speed_entry,right_speed_entry))
     # back_button and '<Down>' key
 
     up_button = ttk.Button(main_frame, text="Up")
@@ -144,28 +144,30 @@ def send_down(mqtt_client):
 
 
 def send_forward(mqtt_client, entry, entry1):
-    print("drive_forward",[entry,entry1])
-    mqtt_client.send_message("drive_forward")
+    print("drive_forward")
+    mqtt_client.send_message("drive_forward",[mqtt_client,int(entry.get()),
+                                              int(entry1.get())])
 
 
 def send_left(mqtt_client,entry):
-    print("drive_left",[entry])
-    mqtt_client.send_message("drive_left")
+    print("drive_left")
+    mqtt_client.send_message("drive_left",[mqtt_client,int(entry.get())])
 
 
 def send_right(mqtt_client,entry):
-    print("drive_right",[entry])
-    mqtt_client.send_message("drive_right")
+    print("drive_right")
+    mqtt_client.send_message("drive_right",[mqtt_client,int(entry.get())])
 
 
 def send_stop(mqtt_client):
     print("shutdown")
-    mqtt_client.send_message("shutdown")
+    mqtt_client.send_message("shutdown",[mqtt_client])
 
 
 def send_back(mqtt_client,entry,entry1):
-    print("drive_back",[entry,entry1])
-    mqtt_client.send_message("drive_back")
+    print("drive_back")
+    mqtt_client.send_message("drive_back",[mqtt_client,int(entry.get()),
+                                              int(entry1.get())])
 
 
 # Quit and Exit button callbacks
