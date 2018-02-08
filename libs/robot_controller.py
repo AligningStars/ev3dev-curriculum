@@ -25,6 +25,8 @@ class Snatch3r(object):
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.touch_sensor = ev3.TouchSensor()
         self.color_sensor = ev3.ColorSensor()
+        self.ir_sensor = ev3.InfraredSensor
+        self.pixy = ev3.Sensor(driver_name="pixy-lego")
         self.MAX_SPEED = 900
 
         # Check that the motors are actually connected
@@ -33,6 +35,8 @@ class Snatch3r(object):
         assert self.arm_motor
         assert self.touch_sensor
         assert self.color_sensor
+        assert self.ir_sensor
+        assert self.pixy.connected
 
     def drive_inches(self, inches_target, motor_dps):
         """Drive the desired number of inches as inputed by the user,
