@@ -57,7 +57,6 @@ def seek_beacon(robot):
     """
 
     # TODO: 2. Create a BeaconSeeker object on channel 1.
-    beacon_seeker = ev3.RemoteControl(channel=1)
     forward_speed = 300
     turn_speed = 100
 
