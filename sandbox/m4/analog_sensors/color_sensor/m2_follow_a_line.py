@@ -83,7 +83,7 @@ def follow_the_line(robot, white_level, black_level):
     # Optional extra - For a harder challenge could you drive on the black line and handle left or right turns?
     while not ev3.TouchSensor.is_pressed:
         if robot.color_sensor.reflected_light_intensity > white_level - 40:
-            robot.turn_degrees(-90, 600)
+            robot.drive_right(600)
             time.sleep(0.05)
         if robot.color_sensor.reflected_light_intensity < black_level + 40:
             robot.drive_forward(600, 600)

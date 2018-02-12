@@ -99,21 +99,21 @@ def seek_beacon(robot):
 
                 if beacon_seeker.current_heading == 0:
                     return True
-                if beacon_seeker.current_heading > 0:
+                elif beacon_seeker.current_heading > 0:
                     robot.drive_forward(forward_speed, forward_speed)
 
-            if math.fabs(beacon_seeker.current_heading) > 2 and math.fabs(
+            elif math.fabs(beacon_seeker.current_heading) > 2 and math.fabs(
                             beacon_seeker.current_heading) < 10:
                 if beacon_seeker.current_heading < 0:
                     robot.turn_degrees(-turn_speed, turn_speed)
                     print("On the left heading. Distance: ",
                           beacon_seeker.current_distance)
-                if beacon_seeker.current_heading > 0:
+                elif beacon_seeker.current_heading > 0:
                     robot.turn_degrees(turn_speed, -turn_speed)
                     print("On the right heading. Distance: ",
                           beacon_seeker.current_distance)
 
-            if math.fabs(beacon_seeker.current_heading) > 10:
+            elif math.fabs(beacon_seeker.current_heading) > 10:
                 robot.shutdown()
                 print('Heading too far off')
                 print("Heading is too far off to fix: ",

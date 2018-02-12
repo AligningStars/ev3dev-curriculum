@@ -26,8 +26,6 @@ def main():
     robot = robo.Snatch3r()
     robot.pixy.mode = "SIG1"
     turn_speed = 100
-    turn_degree = 10
-
     while not robot.touch_sensor.is_pressed:
 
         # DONE: 2. Read the Pixy values for x and y
