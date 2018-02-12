@@ -36,7 +36,7 @@ class Snatch3r(object):
         assert self.touch_sensor
         assert self.color_sensor
         assert self.ir_sensor
-        assert self.pixy.connected
+        assert self.pixy
 
     def drive_inches(self, inches_target, motor_dps):
         """Drive the desired number of inches as inputed by the user,
