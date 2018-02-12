@@ -29,8 +29,8 @@ def main():
 
     # TODO: 4: After running the code set the default white and black levels to a better initial guess.
     #   Once you have the values hardcoded to resonable numbers here you don't really need the w and b commands below.
-    white_level = 50
-    black_level = 40
+    white_level = 97
+    black_level = 3
     robot = robo.Snatch3r()
 
     while True:
@@ -82,10 +82,11 @@ def follow_the_line(robot, white_level, black_level):
     # should drive straight or turn to the right.  You will need to test and refine your code until it works well.
     # Optional extra - For a harder challenge could you drive on the black line and handle left or right turns?
     while not ev3.TouchSensor.is_pressed:
-        if white_level > 3:
-            robot.turn_degrees(-90, 800)
-        if black_level < 3:
-            robot.drive_forward(900, 900)
+        if robot.color_sensor.reflected_light_intensity > white_level - 40:
+            robot.turn_degrees(-90, 600)
+            time.sleep(0.05)
+        if robot.color_sensor.reflected_light_intensity < black_level + 40:
+            robot.drive_forward(600, 600)
         time.sleep(0.01)
     robot.shutdown()
     ev3.Sound.speak("Done")
