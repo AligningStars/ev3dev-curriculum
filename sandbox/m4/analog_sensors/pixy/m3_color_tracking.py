@@ -48,7 +48,7 @@ def main():
         else:
             robot.left_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
             robot.right_motor.stop(stop_action=ev3.Motor.STOP_ACTION_BRAKE)
-            
+
         time.sleep(0.25)
 
     print("Goodbye!")
