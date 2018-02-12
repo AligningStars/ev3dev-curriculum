@@ -36,7 +36,6 @@ def main():
         #   self.ir_sensor = ev3.InfraredSensor()
         #   assert self.ir_sensor
         # Then here you can use a command like robot.ir_sensor.proximity
-
         if robot.ir_sensor.proximity < 10:
             ev3.Sound.beep().wait()
             time.sleep(1.5)
