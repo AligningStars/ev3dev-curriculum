@@ -118,7 +118,7 @@ def seek_beacon(robot):
                 print('Heading too far off')
                 print("Heading is too far off to fix: ",
                       beacon_seeker.current_heading)
-                
+
         time.sleep(0.2)
 
     # The touch_sensor was pressed to abort the attempt if this code runs.
