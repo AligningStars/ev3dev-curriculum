@@ -13,7 +13,7 @@
 
 import ev3dev.ev3 as ev3
 import time
-
+import math
 
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
@@ -168,3 +168,52 @@ class Snatch3r(object):
         while self.running:
             time.sleep(0.1)  # Do nothing (except receive MQTT messages) until an MQTT message calls shutdown.
 
+    def seek_beacon(self):
+        """ Uses the IR Sensor in BeaconSeeker mode to find the beacon.  If
+        the beacon is found this return True.
+        If the beacon is not found and the attempt is cancelled by hitting the touch sensor, return False."""
+        beacon_seeker = ev3.BeaconSeeker(channel=1)
+        assert beacon_seeker
+        forward_speed = 300
+        turn_speed = 100
+
+        while not self.touch_sensor.is_pressed:
+            current_heading = beacon_seeker.heading
+            current_distance = beacon_seeker.distance
+
+            if current_distance == -128:
+                print("IR Remote not found. Distance is -128")
+                self.shutdown()
+            else:
+                if math.fabs(current_heading) < 2:
+                    print("On the right heading. Distance: ",
+                          current_distance)
+                    if current_distance == 1:
+                        self.shutdown()
+                        return True
+                    elif current_distance > 0:
+                        self.drive_forward(forward_speed, forward_speed)
+
+                elif math.fabs(current_heading) > 2 and math.fabs(
+                        current_heading) < 10:
+                    if current_heading < 0:
+                        self.left_motor.run_forever(speed_sp=-turn_speed)
+                        self.right_motor.run_forever(speed_sp=turn_speed)
+                        print("On the left heading. Distance: ",
+                              current_distance)
+                    elif current_heading > 0:
+                        print("On the right heading. Distance: ",
+                              current_distance)
+                        self.left_motor.run_forever(speed_sp=turn_speed)
+                        self.right_motor.run_forever(speed_sp=-turn_speed)
+
+                elif math.fabs(current_heading) > 10:
+                    self.shutdown()
+                    print('Heading too far off')
+                    print("Heading is too far off to fix: ", current_heading)
+
+            time.sleep(0.2)
+        # The touch_sensor was pressed to abort the attempt if this code runs.
+        print("Abandon ship!")
+        self.shutdown()
+        return False

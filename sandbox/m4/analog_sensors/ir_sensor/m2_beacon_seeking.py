@@ -66,9 +66,9 @@ def seek_beacon(robot):
         # The touch sensor can be used to abort the attempt (sometimes handy during testing)
 
         # TODO: 3. Use the beacon_seeker object to get the current heading and distance.
-        current_heading = beacon_seeker.current_heading  # use the
+        current_heading = beacon_seeker.heading  # use the
         # beacon_seeker heading
-        current_distance = beacon_seeker.current_distance  # use the
+        current_distance = beacon_seeker.distance  # use the
         # beacon_seeker distance
 
         if current_distance == -128:
@@ -98,22 +98,23 @@ def seek_beacon(robot):
                 print("On the right heading. Distance: ",
                       current_distance)
                 # You add more!
-
-                if current_distance == 0:
+                if current_distance == 1:
+                    robot.shutdown()
                     return True
                 elif current_distance > 0:
-                    robot.drive_inches(current_distance,
-                                  forward_speed)
+                    robot.drive_forward(forward_speed, forward_speed)
 
             elif math.fabs(current_heading) > 2 and math.fabs(
                             current_heading) < 10:
                 if current_heading < 0:
-                    robot.turn_degrees(20, turn_speed)
+                    robot.left_motor.run_forever(speed_sp=-turn_speed)
+                    robot.right_motor.run_forever(speed_sp=turn_speed)
                     print("On the left heading. Distance: ",
                           current_distance)
                 elif current_heading > 0:
-                    robot.turn_degrees(20, -turn_speed)
                     print("On the right heading. Distance: ", current_distance)
+                    robot.left_motor.run_forever(speed_sp=turn_speed)
+                    robot.right_motor.run_forever(speed_sp=-turn_speed)
 
             elif math.fabs(current_heading) > 10:
                 robot.shutdown()
