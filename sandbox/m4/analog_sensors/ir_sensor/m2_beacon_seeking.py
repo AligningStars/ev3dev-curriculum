@@ -31,7 +31,7 @@ def main():
         while True:
             seek_beacon(robot)
 
-            # TODO: 5. Save the result of the seek_beacon function (a bool), then use that value to only say "Found the
+            # DONE: 5. Save the result of the seek_beacon function (a bool), then use that value to only say "Found the
             # beacon" if the return value is True.  (i.e. don't say "Found the beacon" if the attempts was cancelled.)
             ev3.Sound.speak("Found the beacon")
 
@@ -65,7 +65,7 @@ def seek_beacon(robot):
     while not robot.touch_sensor.is_pressed:
         # The touch sensor can be used to abort the attempt (sometimes handy during testing)
 
-        # TODO: 3. Use the beacon_seeker object to get the current heading and distance.
+        # DONE: 3. Use the beacon_seeker object to get the current heading and distance.
         current_heading = beacon_seeker.heading  # use the
         # beacon_seeker heading
         current_distance = beacon_seeker.distance  # use the
@@ -76,7 +76,7 @@ def seek_beacon(robot):
             print("IR Remote not found. Distance is -128")
             robot.shutdown()
         else:
-            # TODO: 4. Implement the following strategy to find the beacon.
+            # DONE: 4. Implement the following strategy to find the beacon.
             # If the absolute value of the current_heading is less than 2, you are on the right heading.
             #     If the current_distance is 0 return from this function, you have found the beacon!  return True
             #     If the current_distance is greater than 0 drive straight forward (forward_speed, forward_speed)

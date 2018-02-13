@@ -31,7 +31,7 @@ def main():
     robot.pixy.mode = "SIG1"
 
     while not robot.touch_sensor.is_pressed:
-        # TODO: 2. Implement the module as described in the opening comment block.
+        # DONE: 2. Implement the module as described in the opening comment block.
         # It is recommended that you add to your Snatch3r class's constructor the pixy object, as shown
         #   self.pixy = ev3.Sensor(driver_name="pixy-lego")
         #   assert self.pixy

@@ -32,7 +32,7 @@ def main():
         # Print the values for x and y
         print('(X, Y)=({},{})'.format(robot.pixy.value(1), robot.pixy.value(2)))
 
-        # TODO: 3. Use the x value to turn the robot
+        # DONE: 3. Use the x value to turn the robot
         #   If the Pixy x value is less than 150 turn left (-turn_speed, turn_speed)
         #   If the Pixy x value is greater than 170 turn right (turn_speed, -turn_speed)
         #   If the Pixy x value is between 150 and 170 stop the robot
