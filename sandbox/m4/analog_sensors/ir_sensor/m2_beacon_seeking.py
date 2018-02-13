@@ -67,7 +67,7 @@ def seek_beacon(robot):
 
         # TODO: 3. Use the beacon_seeker object to get the current heading and distance.
         beacon_seeker.current_heading = 0  # use the beacon_seeker heading
-        beacon_seeker.current_distance = 0  # use the beacon_seeker distance
+        beacon_seeker.current_distance = 10  # use the beacon_seeker distance
 
         if beacon_seeker.current_distance == -128:
             # If the IR Remote is not found just sit idle for this program until it is moved.
@@ -97,19 +97,20 @@ def seek_beacon(robot):
                       beacon_seeker.current_distance)
                 # You add more!
 
-                if beacon_seeker.current_heading == 1:
+                if beacon_seeker.current_distance == 0:
                     return True
-                elif beacon_seeker.current_heading > 0:
-                    robot.drive_forward(forward_speed, forward_speed)
+                elif beacon_seeker.current_distance > 0:
+                    robot.drive_inches(beacon_seeker.current_distance,
+                                  forward_speed)
 
             elif math.fabs(beacon_seeker.current_heading) > 2 and math.fabs(
                             beacon_seeker.current_heading) < 10:
                 if beacon_seeker.current_heading < 0:
-                    robot.turn_degrees(-turn_speed, turn_speed)
+                    robot.turn_degrees(20, turn_speed)
                     print("On the left heading. Distance: ",
                           beacon_seeker.current_distance)
                 elif beacon_seeker.current_heading > 0:
-                    robot.turn_degrees(turn_speed, -turn_speed)
+                    robot.turn_degrees(20, -turn_speed)
                     print("On the right heading. Distance: ",
                           beacon_seeker.current_distance)
 
