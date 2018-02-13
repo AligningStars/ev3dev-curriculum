@@ -39,8 +39,7 @@ def main():
 
         if robot.pixy.value(3) > 0:
             ev3.Sound.beep().wait()
-
-        print('(X, Y)=({},{}) Width={}'.format(robot.pixy.value(1),
+            print('(X, Y)=({},{}) Width={}'.format(robot.pixy.value(1),
                                                robot.pixy.value(2),
                                                robot.pixy.value(3)))
         time.sleep(0.1)
