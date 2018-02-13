@@ -40,7 +40,7 @@ def main():
             ev3.Sound.beep().wait()
             time.sleep(1.5)
 
-        time.sleep(0.1)
+        time.sleep(0.1) 
         print(robot.ir_sensor.proximity)
 
         if robot.touch_sensor.is_pressed:

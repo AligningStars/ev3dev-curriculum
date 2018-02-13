@@ -97,7 +97,7 @@ def seek_beacon(robot):
                       beacon_seeker.current_distance)
                 # You add more!
 
-                if beacon_seeker.current_heading == 0:
+                if beacon_seeker.current_heading == 1:
                     return True
                 elif beacon_seeker.current_heading > 0:
                     robot.drive_forward(forward_speed, forward_speed)
