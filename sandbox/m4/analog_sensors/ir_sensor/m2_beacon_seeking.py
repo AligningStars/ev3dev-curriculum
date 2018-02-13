@@ -66,10 +66,12 @@ def seek_beacon(robot):
         # The touch sensor can be used to abort the attempt (sometimes handy during testing)
 
         # TODO: 3. Use the beacon_seeker object to get the current heading and distance.
-        beacon_seeker.current_heading = 0  # use the beacon_seeker heading
-        beacon_seeker.current_distance = 10  # use the beacon_seeker distance
+        current_heading = beacon_seeker.current_heading  # use the
+        # beacon_seeker heading
+        current_distance = beacon_seeker.current_distance  # use the
+        # beacon_seeker distance
 
-        if beacon_seeker.current_distance == -128:
+        if current_distance == -128:
             # If the IR Remote is not found just sit idle for this program until it is moved.
             print("IR Remote not found. Distance is -128")
             robot.shutdown()
@@ -91,34 +93,32 @@ def seek_beacon(robot):
             #    print("Heading is too far off to fix: ", current_heading)
 
             # Here is some code to help get you started
-            if math.fabs(beacon_seeker.current_heading) < 2:
+            if math.fabs(current_heading) < 2:
                 # Close enough of a heading to move forward
                 print("On the right heading. Distance: ",
-                      beacon_seeker.current_distance)
+                      current_distance)
                 # You add more!
 
-                if beacon_seeker.current_distance == 0:
+                if current_distance == 0:
                     return True
-                elif beacon_seeker.current_distance > 0:
-                    robot.drive_inches(beacon_seeker.current_distance,
+                elif current_distance > 0:
+                    robot.drive_inches(current_distance,
                                   forward_speed)
 
-            elif math.fabs(beacon_seeker.current_heading) > 2 and math.fabs(
-                            beacon_seeker.current_heading) < 10:
-                if beacon_seeker.current_heading < 0:
+            elif math.fabs(current_heading) > 2 and math.fabs(
+                            current_heading) < 10:
+                if current_heading < 0:
                     robot.turn_degrees(20, turn_speed)
                     print("On the left heading. Distance: ",
-                          beacon_seeker.current_distance)
-                elif beacon_seeker.current_heading > 0:
+                          current_distance)
+                elif current_heading > 0:
                     robot.turn_degrees(20, -turn_speed)
-                    print("On the right heading. Distance: ",
-                          beacon_seeker.current_distance)
+                    print("On the right heading. Distance: ", current_distance)
 
-            elif math.fabs(beacon_seeker.current_heading) > 10:
+            elif math.fabs(current_heading) > 10:
                 robot.shutdown()
                 print('Heading too far off')
-                print("Heading is too far off to fix: ",
-                      beacon_seeker.current_heading)
+                print("Heading is too far off to fix: ", current_heading)
 
         time.sleep(0.2)
 
