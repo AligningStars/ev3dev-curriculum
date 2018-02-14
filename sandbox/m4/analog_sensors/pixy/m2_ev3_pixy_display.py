@@ -36,7 +36,7 @@ def main():
                                                robot.pixy.value(2),
                                                robot.pixy.value(3),
                                                robot.pixy.value(4)))
-        mqtt_client.send_message('on_rectangle_update',[robot.pixy.value(1),
+        mqtt_client.send_message('on_rectangle_update', [robot.pixy.value(1),
                                                         robot.pixy.value(2),
                                                         robot.pixy.value(3),
                                                         robot.pixy.value(4)])
