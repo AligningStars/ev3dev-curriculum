@@ -30,3 +30,6 @@ def main():
         letter_entry.grid(row=0, column=k)
 
     root.mainloop()
+
+
+main()
