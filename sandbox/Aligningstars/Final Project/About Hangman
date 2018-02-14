@@ -12,7 +12,10 @@ Analog Sensor:  1 & interact with the robot
 Digital Inputs: 1
 
 
+
 Motors:         drive via remote control/depend on environment
+    State Keeper: drive to the position of the letter and bring down stuff there if the answer is correct.
+    State Keeper2: drive forward if wrong, color sensor indicates how close you are to game over.
 
 Creativity:     theme
     Hangman-word guess game

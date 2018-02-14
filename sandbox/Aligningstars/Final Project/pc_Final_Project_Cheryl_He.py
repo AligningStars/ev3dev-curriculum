@@ -17,7 +17,7 @@ def main():
     mqtt_client.connect_to_ev3()
 
     root = tkinter.Tk()
-    root.title("MQTT Remote")
+    root.title("Hangman!")
 
     main_frame = ttk.Frame(root, padding=40, relief='raised')
     main_frame.grid()
