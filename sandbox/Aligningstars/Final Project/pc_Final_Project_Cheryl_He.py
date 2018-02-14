@@ -22,7 +22,6 @@ def main():
     main_frame = ttk.Frame(root, padding=40, relief='raised')
     main_frame.grid()
 
-
     word = 'project'
     for k in range(len(word)):
         letter = ttk.Label(main_frame, text="____")
