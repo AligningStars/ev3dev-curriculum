@@ -25,3 +25,5 @@ def main():
     robot = robo.Snatch3r()
     mqtt_client = com.MqttClient()
     mqtt_client.connect_to_pc()
+
+
