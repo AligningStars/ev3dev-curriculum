@@ -219,6 +219,9 @@ class Snatch3r(object):
         return False
 
     def drive_to_color(self,color_to_seek):
+        """Make the robot motors run in a forward direction until the
+        robot's color sensor sees the desired color as specified by the
+        input"""
         self.drive_forward(400, 400)
         while True:
             c = self.color_sensor.color
