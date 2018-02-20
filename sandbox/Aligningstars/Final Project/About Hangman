@@ -10,7 +10,7 @@ Analog Sensor:  1 & interact with the robot
     color sensor: different colors indicate different states of the hangman
 
 Digital Inputs: 1
-
+    Move and stop at the color that corresponds to your health point
 
 
 Motors:         drive via remote control/depend on environment
