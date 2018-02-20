@@ -149,7 +149,7 @@ def leds_example():
             ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.RED)
             ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.ORANGE)
         else:
-            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+            ev3.Leds.set_color(ev3.Leds.LEFAQsT, ev3.Leds.GREEN)
             ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.ORANGE)
 
     ev3.Leds.all_off()  # The lines below can be used to turn off only 1 LED if you need that.

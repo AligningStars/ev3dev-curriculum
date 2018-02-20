@@ -217,3 +217,12 @@ class Snatch3r(object):
         print("Abandon ship!")
         self.shutdown()
         return False
+
+    def drive_to_color(self,color_to_seek):
+        self.drive_forward(400, 400)
+        while True:
+            c = self.color_sensor.color
+            if c == color_to_seek:
+                self.shutdown()
+                break
+            time.sleep(0.1)
